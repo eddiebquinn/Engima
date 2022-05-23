@@ -4,13 +4,14 @@ import json
 
 class Plugboard():
 
-    def __init__(self):
-        self.map = {
-            "a": "a", "b": "b", "c": "c", "d": "d", "e": "e", "f": "f", "g": "g",
-            "h": "h", "i": "i", "j": "j", "k": "k", "l": "l", "m": "m", "n": "n",
-            "o": "o", "p": "p", "q": "q", "r": "r", "s": "s", "t": "t", "u": "u",
-            "v": "v", "w": "w", "x": "x", "y": "y", "z": "z"
-        }
+    def __init__(self, plugboard_name: str = "default"):
+        self.map = self.get_map(rotor_name)
+
+    def get_map(self, plugboard_name: str):
+        json_file_path = f"plugboard_maps/{plugboard_name}.json"
+        with open(json_file_path, "r") as j:
+            map_ = json.loads(j.read())
+        return map_
 
     def scramble(self):
         keys = list(self.map.keys())
