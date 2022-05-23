@@ -4,10 +4,11 @@ import json
 class Rotor():
 
     def __init__(self, rotor_name: str = "default", ring_setting: int = 0):
+        self.name = rotor_name
         self.offset = 0
         self.ring_setting = ring_setting
-        self.map = self.get_map(rotor_name, self.ring_setting)
-        print(self.map)
+
+        self.map = self.get_map(self.name, self.ring_setting)
 
     def get_map(self, rotor_name: str, ring_setting: int):
         json_file_path = f"rotor_maps/{rotor_name}.json"
@@ -41,3 +42,36 @@ class Rotor():
         self.offset = 0 if self.offset == 25 else self.offset + 1
         print(self.offset)
         print("click")
+
+    def convert(self, _input: str, click: bool = False):
+        output = ""
+        for i in _input:
+            output = output + self.map["map"][i]
+
+        return output
+
+
+class Rotors():
+
+    def __init__(self, reflector, rotor1, rotor2, rotor3):
+        self.reflor = reflector
+        self.rotor1 = rotor1
+        self.rotor2 = rotor2
+        self.rotor3 = rotor3
+        self.rotors = [self.rotor1, self.rotor2, self.rotor3]
+
+    def print_config(self):
+        print(
+            f"[{self.reflor.name} | {self.rotor3.name} | {self.rotor2.name} | {self.rotor1.name}]")
+
+    def convert(self, input_: str):
+        output_complete = ""
+        for i in input_:
+            output = ""
+            for rotor in self.rotors:
+                output = rotor.convert(i)
+            output = self.reflor.convert(output)
+            for rotor in self.rotors[::-1]:
+                output = rotor.convert(output)
+            output_complete = output_complete + output
+        return output_complete

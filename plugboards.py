@@ -5,7 +5,7 @@ import json
 class Plugboard():
 
     def __init__(self, plugboard_name: str = "default"):
-        self.map = self.get_map(rotor_name)
+        self.map = self.get_map(plugboard_name)
 
     def get_map(self, plugboard_name: str):
         json_file_path = f"plugboard_maps/{plugboard_name}.json"
@@ -35,8 +35,8 @@ class Plugboard():
 
     def convert(self, input_: str):
 
-        output = []
+        output = ""
         for item in input_:
             i = self.map[item]
-            output.append(i)
+            output = output + i
         return output
