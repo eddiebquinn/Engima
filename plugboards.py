@@ -1,4 +1,5 @@
 import random
+import json
 
 
 class Plugboard():
@@ -27,8 +28,8 @@ class Plugboard():
 
         self.map = new_map
 
-    def save_config(name: str):
-        with open(f"rotor_maps/{name}.json", "w") as outfile:
+    def save_config(self, name: str):
+        with open(f"plugboard_maps/{name}.json", "w") as outfile:
             json.dump(self.map, outfile)
 
     def convert(self, input_: str):
