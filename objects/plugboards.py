@@ -13,19 +13,27 @@ class Plugboard():
             map_ = json.loads(j.read())
         return map_
 
-    def scramble(self):
+    def scramble(self, scramble_level=10):
+        if scramble_level > 13:
+            print("You can only select a scramble level between 0 and 13")
         keys = list(self.map.keys())
+        random.shuffle(keys)
 
+        count = 0
         new_map = {}
         for key in keys:
+            new_value = None
             if key in new_map.keys():
                 continue
-            new_val = random.choice(keys)
-            while new_val == key or new_val in new_map.keys():
-                new_val = random.choice(keys)
+            if count >= scramble_level:
+                new_value = self.map[key]
+            else:
+                new_value = random.choice(keys)
+                while new_value == key or new_value in new_map.keys() or new_value == None:
+                    new_value = random.choice(keys)
 
-            new_map[key] = new_val
-            new_map[new_val] = key
+            new_map[key], new_map[new_value] = self.map[new_value], self.map[key]
+            count = count + 1
 
         self.map = new_map
 
