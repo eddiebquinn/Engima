@@ -11,7 +11,7 @@ class Rotor():
         self.map = self.get_map(self.name, self.ring_setting)
 
     def get_map(self, rotor_name: str, ring_setting: int):
-        json_file_path = f"rotor_maps/{rotor_name}.json"
+        json_file_path = f"resources/rotor_maps/{rotor_name}.json"
         with open(json_file_path, "r") as j:
             map_ = json.loads(j.read())
 

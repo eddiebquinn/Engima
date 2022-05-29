@@ -8,7 +8,7 @@ class Plugboard():
         self.map = self.get_map(plugboard_name)
 
     def get_map(self, plugboard_name: str):
-        json_file_path = f"plugboard_maps/{plugboard_name}.json"
+        json_file_path = f"resources/plugboard_maps/{plugboard_name}.json"
         with open(json_file_path, "r") as j:
             map_ = json.loads(j.read())
         return map_
@@ -30,7 +30,7 @@ class Plugboard():
         self.map = new_map
 
     def save_config(self, name: str):
-        with open(f"plugboard_maps/{name}.json", "w") as outfile:
+        with open(f"resources/plugboard_maps/{name}.json", "w") as outfile:
             json.dump(self.map, outfile)
 
     def convert(self, input_: str):
